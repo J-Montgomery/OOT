@@ -2000,7 +2000,7 @@ void OTRGlobals::CheckSaveFile(size_t sramSize) const {
     std::fstream saveFile(savePath, std::fstream::in | std::fstream::out | std::fstream::binary);
     if (saveFile.fail()) {
         saveFile.open(savePath, std::fstream::in | std::fstream::out | std::fstream::binary | std::fstream::app);
-        for (int i = 0; i < sramSize; ++i) {
+        for (unsigned i = 0; i < sramSize; ++i) {
             saveFile.write("\0", 1);
         }
     }
@@ -2321,7 +2321,7 @@ extern "C" int GetEquipNowMessage(char* buffer, char* src, const int maxBufferSi
     }
     std::string str;
     std::string FixedBaseStr(src);
-    int RemoveControlChar = FixedBaseStr.find_first_of("\x02");
+    auto RemoveControlChar = FixedBaseStr.find_first_of("\x02");
 
     if (RemoveControlChar != std::string::npos) {
         FixedBaseStr = FixedBaseStr.substr(0, RemoveControlChar);
