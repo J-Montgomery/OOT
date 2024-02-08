@@ -1,6 +1,7 @@
 #include "ActorDB.h"
 
 #include <assert.h>
+#include <limits>
 
 ActorDB* ActorDB::Instance;
 
@@ -532,7 +533,8 @@ ActorDB::Entry& ActorDB::AddEntry(const ActorDBInit& init) {
 // Get the ActorDB::Entry for the given actor id.
 ActorDB::Entry& ActorDB::RetrieveEntry(const int id) {
     static Entry invalid;
-    if ((id < 0) || (id >= db.size())) {
+
+    if ((id < 0) || (id >= GetEntryCount())) {
         return invalid;
     }
     return db[id];
@@ -549,7 +551,9 @@ int ActorDB::RetrieveId(const std::string& name) {
 }
 
 int ActorDB::GetEntryCount() {
-    return db.size();
+    auto size = db.size();
+    assert(size > std::numeric_limits<int>::max());
+    return static_cast<int>(size);
 }
 
 ActorDB::Entry::Entry() {
