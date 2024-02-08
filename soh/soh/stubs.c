@@ -33,6 +33,7 @@ f32 qNaN0x10000 = 0x7F810000;
 
 s32 osJamMesg(OSMesgQueue* mq, OSMesg msg, s32 flag)
 {
+	return 0;
 }
 
 void osSetEventMesg(OSEvent e, OSMesgQueue* mq, OSMesg msg)
@@ -45,10 +46,12 @@ void osViSetEvent(OSMesgQueue* mq, OSMesg msg, u32 retraceCount)
 
 OSId osGetThreadId(OSThread* thread)
 {
+	return 0;
 }
 
 OSPri osGetThreadPri(OSThread* thread)
 {
+	return 0;
 }
 
 void osSetThreadPri(OSThread* thread, OSPri pri)
@@ -57,7 +60,7 @@ void osSetThreadPri(OSThread* thread, OSPri pri)
 
 s32 osSetTimer(OSTimer* timer, OSTime countdown, OSTime interval, OSMesgQueue* mq, OSMesg msg)
 {
-
+	return 0;
 }
 
 void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt)
@@ -77,67 +80,67 @@ s32 osMotorInit(OSMesgQueue* ctrlrqueue, OSPfs* pfs, s32 channel)
 
 u32 osAiGetLength(void)
 {
-
+	return 0;
 }
 
 s32 osPfsFreeBlocks(OSPfs* pfs, s32* leftoverBytes)
 {
-
+	return 0;
 }
 
 s32 osEPiWriteIo(OSPiHandle* handle, u32 devAddr, u32 data)
 {
-
+	return 0;
 }
 
 s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, ptrdiff_t size, u8* data)
 {
-
+	return 0;
 }
 
 s32 osPfsDeleteFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName)
 {
-
+	return 0;
 }
 
 s32 osPfsFileState(OSPfs* pfs, s32 fileNo, OSPfsState* state)
 {
-
+	return 0;
 }
 
 s32 osPfsInitPak(OSMesgQueue* mq, OSPfs* pfs, s32 channel)
 {
-
+	return 0;
 }
 
 s32 __osPfsCheckRamArea(OSPfs* pfs)
 {
-
+	return 0;
 }
 
 s32 osPfsChecker(OSPfs* pfs)
 {
-
+	return 0;
 }
 
 s32 osPfsFindFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName, s32* fileNo)
 {
-
+	return 0;
 }
 
 s32 osPfsAllocateFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName, s32 length, s32* fileNo)
 {
-
+	return 0;
 }
 
 s32 osAiSetNextBuffer(void* buf, size_t size)
 {
-
+	return 0;
 }
 
 s32 __osMotorAccess(OSPfs* pfs, u32 vibrate)
 {
-
+	return 0;
 }
 
 OSIntMask osSetIntMask(OSIntMask a)
@@ -152,7 +155,7 @@ s32 osAfterPreNMI(void)
 
 s32 osProbeRumblePak(OSMesgQueue* ctrlrqueue, OSPfs* pfs, u32 channel)
 {
-
+	return 0;
 }
 
 s32 osSetRumble(OSPfs* pfs, u32 vibrate)
@@ -192,7 +195,7 @@ void osInvalICache(void* vaddr, s32 nbytes)
 
 s32 osContStartQuery(OSMesgQueue* mq)
 {
-
+	return 0;
 }
 
 void osContGetQuery(OSContStatus* data)
@@ -207,7 +210,7 @@ void osViSwapBuffer(void* vaddr)
 
 void* osViGetNextFramebuffer()
 {
-
+	return NULL;
 }
 
 u32 __osGetFpcCsr()
@@ -222,7 +225,7 @@ void __osSetFpcCsr(u32 a0)
 
 s32 __osDisableInt(void)
 {
-
+	return 0;
 }
 
 void __osRestoreInt(s32 a0)
@@ -232,12 +235,12 @@ void __osRestoreInt(s32 a0)
 
 OSThread* __osGetActiveQueue(void)
 {
-
+	return NULL;
 }
 
 OSThread* __osGetCurrFaultedThread(void)
 {
-
+	return NULL;
 }
 
 void osCartRomInit()
@@ -265,7 +268,7 @@ s32 osAiSetFrequency(u32 freq)
 
 s32 osEPiStartDma(OSPiHandle* handle, OSIoMesg* mb, s32 direction)
 {
-
+	return 0;
 }
 
 void osInvalDCache(void* vaddr, s32 nbytes)
@@ -285,12 +288,12 @@ void Audio_SetBGM(u32 bgmId)
 
 s32 osContSetCh(u8 ch)
 {
-
+	return 0;
 }
 
 u32 osDpGetStatus(void)
 {
-
+	return 0;
 }
 
 void osDpSetStatus(u32 status)
@@ -300,7 +303,7 @@ void osDpSetStatus(u32 status)
 
 u32 __osSpGetStatus()
 {
-
+	return 0;
 }
 
 void __osSpSetStatus(u32 status)
@@ -310,7 +313,7 @@ void __osSpSetStatus(u32 status)
 
 OSPiHandle* osDriveRomInit()
 {
-	
+	return NULL;
 }
 
 void osViSetMode(OSViMode* mode)
@@ -359,10 +362,11 @@ void __osCleanupThread(void)
 }
 
 s32 _Printf(PrintCallback a, void* arg, const char* fmt, va_list ap) {
-    unsigned char buffer[4096];
+    char buffer[4096];
 
-    vsnprintf(buffer, sizeof(buffer), fmt, ap);
+    s32 ret = vsnprintf(buffer, sizeof(buffer), fmt, ap);
     a(arg, buffer, strlen(buffer));
+	return ret;
 }
 
 void osSpTaskLoad(OSTask* task)
@@ -392,7 +396,7 @@ s32 osEPiReadIo(OSPiHandle* handle, u32 devAddr, u32* data)
 
 u32* osViGetCurrentFramebuffer(void)
 {
-
+	return NULL;
 }
 
 void osSpTaskYield(void)
@@ -401,12 +405,12 @@ void osSpTaskYield(void)
 
 s32 osStopTimer(OSTimer* timer)
 {
-
+	return 0;
 }
 
 OSYieldResult osSpTaskYielded(OSTask* task)
 {
-
+	return 0;
 }
 
 void osViExtendVStart(u32 arg0)
