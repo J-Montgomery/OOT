@@ -197,13 +197,13 @@ extern "C" void NameTag_RegisterForActorWithOptions(Actor* actor, const char* te
     std::string processedText = std::string(Interface_ReplaceSpecialCharacters((char*)text));
 
     // Strip out unsupported characters
-    processedText.erase(std::remove_if(processedText.begin(), processedText.end(), [](const char& c) {
+    processedText.erase(std::remove_if(processedText.begin(), processedText.end(), [](const unsigned char& c) {
         // 172 is max supported texture for the in-game font system,
         // and filter anything less than a space but not the newline or nul characters
         return c > 172 || (c < ' ' && c != '\n' && c != '\0');
     }), processedText.end());
 
-    int16_t numChar = processedText.length();
+    size_t numChar = processedText.length();
     int16_t numLines = 1;
     int16_t offsetX = 0;
     int16_t maxOffsetX = 0;
