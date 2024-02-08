@@ -140,7 +140,10 @@ extern "C" uint8_t GetRandomizedEnemy(PlayState* play, int16_t *actorId, f32 *po
     // Lengthen timer in non-MQ Jabu Jabu bubble room.
     if (!isMQ && *actorId == ACTOR_OBJ_ROOMTIMER && *params == 30760 && play->sceneNum == SCENE_JABU_JABU &&
         play->roomCtx.curRoom.num == 12) {
-        *params = 92280;
+        // This was originally setting params to 92280, which isn't representable in a 16 bit type
+        // GCC and MSVC default to cutting the high bits off and setting 26744
+        // I've made that explicit here for sanity, but I have no idea what was originally intended
+        *params = 26744;
     }
 
     if (IsEnemyFoundToRandomize(play->sceneNum, play->roomCtx.curRoom.num, *actorId, *params, *posX)) {
