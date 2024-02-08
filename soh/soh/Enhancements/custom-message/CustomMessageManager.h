@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <sstream>
 #include <unordered_map>
 #include <cstdint>
 #include <exception>
@@ -105,8 +106,8 @@ class CustomMessage {
     const std::string PLAYER_NAME() const;
 
     std::string english = "";
-    std::string french = "";
     std::string german = "";
+    std::string french = "";
     TextBoxType type = TEXTBOX_TYPE_BLACK;
     TextBoxPosition position = TEXTBOX_POS_BOTTOM;
 };
@@ -190,20 +191,14 @@ class CustomMessageManager {
 };
 
 class MessageNotFoundException : public std::exception {
-  private:
-    std::string messageTableId;
-    uint16_t textId;
+private:
+    std::string message;
 
-  public:
+public:
     MessageNotFoundException(std::string messageTableId_, uint16_t textId_)
-        : messageTableId(messageTableId_), textId(textId_) {
-    }
-    MessageNotFoundException(std::string&& messageTableId_, uint16_t textId_)
-        : messageTableId(std::move(messageTableId_)), textId(textId_) {
-    }
-    virtual const char* what() const noexcept {
-        char* message;
-        sprintf(message, "Message from table %s with textId %u was not found", messageTableId.c_str(), textId);
-        return message;
+        : message("Message from table " + messageTableId_ + " with text ID " + std::to_string(textId_) + " not found.") {}
+
+    virtual const char* what() const noexcept override {
+        return message.c_str();
     }
 };
