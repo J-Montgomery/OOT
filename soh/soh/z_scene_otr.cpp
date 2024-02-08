@@ -169,7 +169,8 @@ bool Scene_CommandObjectList(PlayState* play, LUS::ISceneCommand* cmd) {
     firstStatus = &play->objectCtx.status[0];
     status = &play->objectCtx.status[i];
 
-    for (int i = 0; i < cmdObj->objects.size(); i++) {
+    // Pretty sure this loop would be 2 lines with std::algorithm
+    for (size_t i = 0; i < cmdObj->objects.size(); i++) {
         bool alreadyIncluded = false;
 
         for (int j = 0; j < play->objectCtx.num; j++) {
@@ -184,6 +185,7 @@ bool Scene_CommandObjectList(PlayState* play, LUS::ISceneCommand* cmd) {
             func_80031A28(play, &play->actorCtx);
         }
     }
+
 
     /*
     while (i < play->objectCtx.num) {
@@ -464,7 +466,7 @@ bool (*sceneCommands[])(PlayState*, LUS::ISceneCommand*) = {
 s32 OTRScene_ExecuteCommands(PlayState* play, LUS::Scene* scene) {
     LUS::SceneCommandID cmdCode;
 
-    for (int i = 0; i < scene->commands.size(); i++) {
+    for (size_t i = 0; i < scene->commands.size(); i++) {
         auto sceneCmd = scene->commands[i];
 
         if (sceneCmd == nullptr) // UH OH
