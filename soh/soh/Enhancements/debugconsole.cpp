@@ -81,6 +81,7 @@ static bool ActorSpawnHandler(std::shared_ptr<LUS::Console> Console, const std::
             if (args[8][0] != ',') {
                 spawnPoint.rot.z = std::stoi(args[8]);
             }
+            [[fallthrough]];
         case 6:
             if (args[3][0] != ',') {
                 spawnPoint.pos.x = std::stoi(args[3]);
@@ -404,6 +405,8 @@ static bool EntranceHandler(std::shared_ptr<LUS::Console> Console, const std::ve
     gPlayState->transitionTrigger = TRANS_TRIGGER_START;
     gPlayState->transitionType = TRANS_TYPE_INSTANT;
     gSaveContext.nextTransitionType = TRANS_TYPE_INSTANT;
+
+    return 0;
 }
 
 static bool VoidHandler(std::shared_ptr<LUS::Console> Console, const std::vector<std::string>& args, std::string* output) {
@@ -518,6 +521,13 @@ static bool SaveStateHandler(std::shared_ptr<LUS::Console> Console, const std::v
         case SaveStateReturn::FAIL_WRONG_GAMESTATE:
             ERROR_MESSAGE("[SOH] Can not save a state outside of \"GamePlay\"");
             return 1;
+        case SaveStateReturn::FAIL_INVALID_SLOT:
+        case SaveStateReturn::FAIL_NO_MEMORY:
+        case SaveStateReturn::FAIL_STATE_EMPTY:
+        case SaveStateReturn::FAIL_BAD_REQUEST:
+        default:
+            ERROR_MESSAGE("[SOH] Unknown save state failure (%u)", rtn);
+            return 1;
     }
 }
 
@@ -538,6 +548,13 @@ static bool LoadStateHandler(std::shared_ptr<LUS::Console> Console, const std::v
         case SaveStateReturn::FAIL_WRONG_GAMESTATE:
             ERROR_MESSAGE("[SOH] Can not load a state outside of \"GamePlay\"");
             return 1;
+        case SaveStateReturn::FAIL_NO_MEMORY:
+            ERROR_MESSAGE("[SOH] Memory failure during loading");
+            return 1;
+        case SaveStateReturn::FAIL_BAD_REQUEST:
+        default:
+            ERROR_MESSAGE("[SOH] State slot loading failure");
+            return 1;
     }
 
 }
@@ -556,7 +573,7 @@ static bool StateSlotSelectHandler(std::shared_ptr<LUS::Console> Console, const 
         return 1;
     }
 
-    if (slot < 0) {
+    if (slot > 2) {
         ERROR_MESSAGE("[SOH] Invalid slot passed. Slot must be between 0 and 2");
         return 1;
     }
