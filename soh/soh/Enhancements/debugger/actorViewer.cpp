@@ -963,7 +963,7 @@ void ActorViewerWindow::DrawElement() {
         }
         lastSceneId = gPlayState->sceneNum;
         if (ImGui::BeginCombo("Actor Type", acMapping[category])) {
-            for (int i = 0; i < acMapping.size(); i++) {
+            for (size_t i = 0; i < acMapping.size(); i++) {
                 if (ImGui::Selectable(acMapping[i])) {
                     category = i;
                     PopulateActorDropdown(category, list);
@@ -978,7 +978,7 @@ void ActorViewerWindow::DrawElement() {
                 PopulateActorDropdown(category, list);
                 lastSceneId = gPlayState->sceneNum;
             }
-            for (int i = 0; i < list.size(); i++) {
+            for (size_t i = 0; i < list.size(); i++) {
                 std::string label = std::to_string(i) + ": " + ActorDB::Instance->RetrieveEntry(list[i]->id).name;
                 std::string description = GetActorDescription(list[i]->id);
                 if (description != "")
@@ -1186,7 +1186,7 @@ void ActorViewerWindow::DrawElement() {
             if (ImGui::Button("Spawn as Child")) {
                 Actor* parent = display;
                 if (parent != NULL) {
-                    if (newActor.id >= 0 && newActor.id < ACTOR_ID_MAX &&
+                    if (newActor.id < ACTOR_ID_MAX &&
                         ActorDB::Instance->RetrieveEntry(newActor.id).entry.valid) {
                         Actor_SpawnAsChild(&gPlayState->actorCtx, parent, gPlayState, newActor.id, newActor.pos.x,
                                            newActor.pos.y, newActor.pos.z, newActor.rot.x, newActor.rot.y,
