@@ -3,6 +3,13 @@
 
 #include <libultraship/libultra.h>
 
+#undef M_PI
+#undef M_SQRT2
+#undef FLT_MAX
+#undef SHT_MAX
+#undef SHT_MINV
+#undef DEGTORAD
+
 #define M_PI 3.14159265358979323846f
 #define M_SQRT2 1.41421356237309504880f
 #define FLT_MAX 340282346638528859811704183484516925440.0f
