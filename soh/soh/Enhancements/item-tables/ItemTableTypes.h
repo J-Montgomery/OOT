@@ -43,7 +43,7 @@ typedef struct GetItemEntry GetItemEntry;
 
 typedef void (*CustomDrawFunc)(PlayState* play, GetItemEntry* getItemEntry);
 
-typedef struct GetItemEntry {
+struct GetItemEntry {
     /* 0x00 */ uint16_t itemId;
     /* 0x01 */ uint16_t field; // various bit-packed data
     /* 0x02 */ int16_t gi;     // defines the draw id and chest opening animation
