@@ -536,7 +536,7 @@ void GameInteractor::RawAction::SetRandomWind(bool active) {
 void GameInteractor::RawAction::SetPlayerInvincibility(bool active) {
     Player* player = GET_PLAYER(gPlayState);
     if (active) {
-        player->invincibilityTimer = 1000;
+        player->invincibilityTimer = std::numeric_limits<decltype(player->invincibilityTimer)>::max();
     } else {
         player->invincibilityTimer = 0;
     }
