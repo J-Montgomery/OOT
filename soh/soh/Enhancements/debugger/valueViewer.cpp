@@ -63,7 +63,7 @@ std::vector<ValueTableElement> valueTable = {
 };
 
 extern "C" void ValueViewer_Draw(GfxPrint* printer) {
-    for (int i = 0; i < valueTable.size(); i++) {
+    for (size_t i = 0; i < valueTable.size(); i++) {
         ValueTableElement& element = valueTable[i];
         if (!element.isActive || !element.isPrinted || (gPlayState == NULL && element.requiresPlayState)) continue;
         GfxPrint_SetColor(printer, element.color.x * 255, element.color.y * 255, element.color.z * 255, element.color.w * 255);
@@ -115,7 +115,7 @@ void ValueViewerWindow::DrawElement() {
         std::string(valueTable[selectedElement].name) + " (" + std::string(valueTable[selectedElement].path) + ")"
     );
     if (ImGui::BeginCombo("##valueViewerElement", selectedElementText.c_str())) {
-        for (int i = 0; i < valueTable.size(); i++) {
+        for (size_t i = 0; i < valueTable.size(); i++) {
             if (valueTable[i].isActive) continue;
             bool isSelected = (selectedElement == i);
             std::string elementText = (
@@ -137,7 +137,7 @@ void ValueViewerWindow::DrawElement() {
     }
     ImGui::EndGroup();
 
-    for (int i = 0; i < valueTable.size(); i++) {
+    for (size_t i = 0; i < valueTable.size(); i++) {
         ValueTableElement& element = valueTable[i];
         if (!element.isActive || (gPlayState == NULL && element.requiresPlayState)) continue;
         if (ImGui::Button(("x##" + std::string(element.name)).c_str())) {

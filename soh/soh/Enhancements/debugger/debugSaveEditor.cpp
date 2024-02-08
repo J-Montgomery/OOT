@@ -699,7 +699,7 @@ void DrawInventoryTab() {
                     }
                 }
 
-                for (int32_t pickerIndex = 0; pickerIndex < possibleItems.size(); pickerIndex++) {
+                for (size_t pickerIndex = 0; pickerIndex < possibleItems.size(); pickerIndex++) {
                     if (((pickerIndex + 1) % 8) != 0) {
                         ImGui::SameLine();
                     }
@@ -1040,7 +1040,7 @@ void DrawFlagsTab() {
         ImGui::Text("Map");
         ImGui::SameLine();
         if (ImGui::BeginCombo("##Gold Skulltula Map", gsMapping[selectedGsMap].c_str())) {
-            for (int32_t gsIndex = 0; gsIndex < gsMapping.size(); gsIndex++) {
+            for (size_t gsIndex = 0; gsIndex < gsMapping.size(); gsIndex++) {
                 if (ImGui::Selectable(gsMapping[gsIndex].c_str())) {
                     selectedGsMap = gsIndex;
                 }
@@ -1094,14 +1094,14 @@ void DrawFlagsTab() {
         }
     });
 
-    for (int i = 0; i < flagTables.size(); i++) {
+    for (size_t i = 0; i < flagTables.size(); i++) {
         const FlagTable& flagTable = flagTables[i];
         if (flagTable.flagTableType == RANDOMIZER_INF && !IS_RANDO && !IS_BOSS_RUSH) {
             continue;
         }
 
         if (ImGui::TreeNode(flagTable.name)) {
-            for (int j = 0; j < flagTable.size + 1; j++) {
+            for (uint32_t j = 0; j < flagTable.size + 1; j++) {
                 DrawGroupWithBorder([&]() {
                     ImGui::Text("%s", fmt::format("{:<2x}", j).c_str());
                     switch (flagTable.flagTableType) {
@@ -1134,7 +1134,7 @@ void DrawUpgrade(const std::string& categoryName, int32_t categoryId, const std:
     ImGui::SameLine();
     ImGui::PushID(categoryName.c_str());
     if (ImGui::BeginCombo("##upgrade", names[CUR_UPG_VALUE(categoryId)].c_str())) {
-        for (int32_t i = 0; i < names.size(); i++) {
+        for (size_t i = 0; i < names.size(); i++) {
             if (ImGui::Selectable(names[i].c_str())) {
                 Inventory_ChangeUpgrade(categoryId, i);
             }
@@ -1172,7 +1172,7 @@ void DrawUpgradeIcon(const std::string& categoryName, int32_t categoryId, const 
 
     ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
     if (ImGui::BeginPopup(upgradePopupPicker)) {
-        for (int32_t pickerIndex = 0; pickerIndex < items.size(); pickerIndex++) {
+        for (size_t pickerIndex = 0; pickerIndex < items.size(); pickerIndex++) {
             if ((pickerIndex % 8) != 0) {
                 ImGui::SameLine();
             }
@@ -1208,7 +1208,7 @@ void DrawEquipmentTab() {
         ITEM_TUNIC_KOKIRI, ITEM_TUNIC_GORON,   ITEM_TUNIC_ZORA,    ITEM_NONE,
         ITEM_BOOTS_KOKIRI, ITEM_BOOTS_IRON,    ITEM_BOOTS_HOVER,   ITEM_NONE,
     };
-    for (int32_t i = 0; i < equipmentValues.size(); i++) {
+    for (size_t i = 0; i < equipmentValues.size(); i++) {
         // Skip over unused 4th slots for shields, boots, and tunics
         if (equipmentValues[i] == ITEM_NONE) {
             continue;
