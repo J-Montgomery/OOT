@@ -115,7 +115,7 @@ void ValueViewerWindow::DrawElement() {
         std::string(valueTable[selectedElement].name) + " (" + std::string(valueTable[selectedElement].path) + ")"
     );
     if (ImGui::BeginCombo("##valueViewerElement", selectedElementText.c_str())) {
-        for (size_t i = 0; i < valueTable.size(); i++) {
+        for (int i = 0; i < static_cast<int>(valueTable.size()); i++) {
             if (valueTable[i].isActive) continue;
             bool isSelected = (selectedElement == i);
             std::string elementText = (
