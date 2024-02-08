@@ -155,10 +155,10 @@ bool Scene_CommandObjectList(PlayState* play, LUS::ISceneCommand* cmd) {
 
     s32 i;
     s32 j;
-    s32 k;
-    ObjectStatus* status;
+    [[maybe_unused]] s32 k;
+    [[maybe_unused]] ObjectStatus* status;
     ObjectStatus* status2;
-    ObjectStatus* firstStatus;
+    [[maybe_unused]] ObjectStatus* firstStatus;
     // s16* objectEntry = SEGMENTED_TO_VIRTUAL(cmd->objectList.segment);
     s16* objectEntry = (s16*)cmdObj->GetRawPointer();
     void* nextPtr;
