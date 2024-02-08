@@ -308,7 +308,7 @@ typedef enum {
     /* 0x9B */ ITEM_NUT_UPGRADE_40,
     /* 0xFC */ ITEM_LAST_USED = 0xFC,
     /* 0xFE */ ITEM_NONE_FE = 0xFE,
-    /* 0xFF */ ITEM_NONE = 0xFF
+    /* 0xFF */ ITEM_NONE = -1
 } ItemID;
 
 #define ITEM_TRADE_CHILD ITEM_WEIRD_EGG
